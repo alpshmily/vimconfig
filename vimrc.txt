@@ -1,1 +1,12 @@
-set nu
+set nocompatible
+filetype on
+set number
+set hlsearch
+set incsearch
+set enc=utf-8
+set tapstop=4
+set softabstop=4
+set shiftwidth=4
+set syntax=on
+set autoindent
+set cindent
