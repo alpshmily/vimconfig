@@ -1,3 +1,4 @@
+nmap S :source~/.vimrc<CR>
 "不兼容VI模式
 set nocompatible 
 "打开行号和相对等号
@@ -7,7 +8,7 @@ set relativenumber
 set cursorline
 "自动拆行
 set wrap
-set textwidth=80
+set textwidth=320
 set linebreak
 set wrapmargin=2
 "垂直滚动时，光标距离顶部的位位置
@@ -16,7 +17,7 @@ set scrolloff=5
 set laststatus=2
 "状态栏显示光标的当前位置
 set ruler
-"光标遇到括号时自动高亮对应的另一半括号
+"G光标遇到括号时自动高亮对应的另一半括号
 set showmatch
 "搜索时，高亮显示匹配结果
 set hlsearch
@@ -46,3 +47,20 @@ set nobackup
 "自动切换工作目录
 set autochdir
 
+
+"设置（自动补全）功能
+inoremap " ""<ESC>i
+inoremap ' ''<ESC>i
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap { {<CR>}<ESC>o
+inoremap < <><ESC>i
+"跳出补全的）和“号
+func SkipPair()
+		if getline('.')[col('.') - 1] == '"' || getline('.')[col('.') - 1] == ')' || getline('.')[col('.') - 1] == ']' || getline('.')[col('.') - 1] == '}' || getline('.')[col('.') - 1] == '>' || getline('.')[col('.') - 1] == "'"
+		    return "\<ESC>la"
+		else
+				return "\t"
+		endif
+endfunc
+inoremap<TAB> <c-r>=SkipPair()<CR>
